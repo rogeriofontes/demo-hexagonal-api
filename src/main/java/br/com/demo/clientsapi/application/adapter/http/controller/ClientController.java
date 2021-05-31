@@ -1,4 +1,4 @@
-package br.com.demo.clientsapi.application.adapter.http;
+package br.com.demo.clientsapi.application.adapter.http.controller;
 
 import br.com.demo.clientsapi.application.adapter.datasource.entity.ClienteEntity;
 import br.com.demo.clientsapi.core.model.Cliente;
@@ -10,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/clients")
