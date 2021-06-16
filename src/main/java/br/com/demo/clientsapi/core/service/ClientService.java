@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -46,67 +45,52 @@ public class ClientService {
     }
 
     public boolean validaNome(String nome) throws ValidacaoException {
-        boolean ehValido = true;
         if (nome == null || nome.equals("")) {
-            ehValido = false;
             throw new ValidacaoException("Campo nome é obrigatório!");
         } else if (nome.length() > 30) {
-            ehValido = false;
             throw new ValidacaoException("Campo nome comporta no máximo 30 chars!");
         }
-        return ehValido;
+        return Boolean.TRUE;
     }
 
     public boolean validaCpf(String cpf) throws ValidacaoException {
-        boolean ehValido = true;
         if (cpf == null || cpf.equals("")) {
-            ehValido = false;
             throw new ValidacaoException("Campo CPF é obrigatório!");
         } else if (cpf.length() != 11) {
-            ehValido = false;
             throw new ValidacaoException("Campo CPF deve ter 11 dígitos!");
         } else {
             char[] digitos = cpf.toCharArray();
             for (char digito : digitos) {
                 if (!Character.isDigit(digito)) {
-                    ehValido = false;
                     throw new ValidacaoException("Campo CPF é somente numérico!");
                 }
             }
         }
-        return ehValido;
+        return Boolean.TRUE;
     }
 
     public boolean validaDtNasc(Date dtNasc) throws ValidacaoException {
-        boolean ehValido = true;
-        if (dtNasc == null || dtNasc.equals("")) {
-            ehValido = false;
+        if (dtNasc == null) {
             throw new ValidacaoException("Campo Dt. Nasc. é obrigatório!");
         } else {
-            ehValido = false;
             dateFormat.format(dtNasc);
         }
-        return ehValido;
+        return Boolean.TRUE;
     }
 
     public boolean validaEndereco(EnderecoDTO enderecoDTO) throws ValidacaoException {
-        boolean ehValido = true;
         if (enderecoDTO.getLogadouro() == null || enderecoDTO.getLogadouro().equals("")) {
-            ehValido = false;
             throw new ValidacaoException("Campo Logradouro é obrigatório!");
         } else if (enderecoDTO.getBairro() == null || enderecoDTO.getBairro().equals("")) {
-            ehValido = false;
             throw new ValidacaoException("Bairro Obrigatorio");
-        } else if (enderecoDTO.getNumero() == null || enderecoDTO.getNumero().equals(0)) {
-            ehValido = false;
+        } else if (enderecoDTO.getNumero() == null || enderecoDTO.getNumero() == 0) {
             throw new ValidacaoException("Numero Obrigatorio");
         }else if (enderecoDTO.getCep() == null || enderecoDTO.getCep().equals(0)) {
-            ehValido = false;
             throw new ValidacaoException("CEP Obrigatorio");
         }
 
 
-        return ehValido;
+        return Boolean.TRUE;
     }
 
     public Cliente editar(Long id, Cliente cliente) {
@@ -123,7 +107,7 @@ public class ClientService {
 
     public Cliente findById(Long id) {
         Optional<ClienteEntity> byId = clienteRepository.findById(id);
-        return clientMapper.to(byId.get());
+        return byId.isPresent() ? clientMapper.to(byId.get()) : new Cliente();
     }
 
     public void delete(Long id) {

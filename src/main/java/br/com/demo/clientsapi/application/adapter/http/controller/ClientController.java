@@ -1,8 +1,8 @@
 package br.com.demo.clientsapi.application.adapter.http.controller;
 
-import br.com.demo.clientsapi.application.adapter.datasource.entity.ClienteEntity;
 import br.com.demo.clientsapi.core.model.Cliente;
 import br.com.demo.clientsapi.core.service.ClientService;
+import br.com.demo.clientsapi.exception.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +43,7 @@ public class ClientController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) throws ValidacaoException {
         Cliente clienteCadastrado = clientService.salvar(cliente);
 
         if (clienteCadastrado != null) {
@@ -67,7 +67,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Long id){
+    public ResponseEntity delete(@PathVariable("id") Long id){
         clientService.delete(id);
         return ResponseEntity.noContent().build();
     }

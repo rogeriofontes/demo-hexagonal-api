@@ -21,7 +21,7 @@ public class ClientHttpClient {
     public String getClienteList() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
         return restTemplate.exchange(" http://localhost:8080/clients", HttpMethod.GET, entity, String.class).getBody();
     }
@@ -30,7 +30,7 @@ public class ClientHttpClient {
     public String createProducts(@RequestBody Cliente cliente) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Cliente> entity = new HttpEntity<Cliente>(cliente,headers);
+        HttpEntity<Cliente> entity = new HttpEntity<>(cliente,headers);
 
         return restTemplate.exchange(
                 "http://localhost:8080/clients", HttpMethod.POST, entity, String.class).getBody();
@@ -40,7 +40,7 @@ public class ClientHttpClient {
     public String updateProduct(@PathVariable("id") String id, @RequestBody Cliente product) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Cliente> entity = new HttpEntity<Cliente>(product,headers);
+        HttpEntity<Cliente> entity = new HttpEntity<>(product,headers);
 
         return restTemplate.exchange(
                 "http://localhost:8080/clients/"+id, HttpMethod.PUT, entity, String.class).getBody();
@@ -50,7 +50,7 @@ public class ClientHttpClient {
     public String deleteProduct(@PathVariable("id") String id) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Cliente> entity = new HttpEntity<Cliente>(headers);
+        HttpEntity<Cliente> entity = new HttpEntity<>(headers);
 
         return restTemplate.exchange(
                 "http://localhost:8080/clients/"+id, HttpMethod.DELETE, entity, String.class).getBody();

@@ -41,11 +41,11 @@ public enum Desconto {
 
     public abstract BigDecimal calculaDesconto(BigDecimal valor);
 
-    public static Desconto getType(String type){
+    public static Desconto getType(String type) {
         for (Desconto desconto : Desconto.values())
-        if (type.equals(desconto.name())) {
-            return desconto;
-        }
+            if (type.equals(desconto.name())) {
+                return desconto;
+            }
 
         return null;
     }
